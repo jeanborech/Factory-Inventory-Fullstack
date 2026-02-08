@@ -4,7 +4,7 @@ async function request(url, options = {}) {
     const fullUrl = url.startsWith('http') ? url : `${API_BASE}${url}`;
 
     fetch('http://127.0.0.1:7242/ingest/51c24d0f-408a-4467-b234-11f06e9ffc5f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'api.js:request',message:'API request',data:{url:fullUrl},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H1,H4'})}).catch(()=>{});
-    // #endregion
+    
     const res = await fetch(fullUrl, {
         ...options,
         headers: {

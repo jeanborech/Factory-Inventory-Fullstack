@@ -118,14 +118,14 @@ async function deleteProduct(id, name) {
 async function loadProductMaterials(productId) {
     
     fetch('http://127.0.0.1:7242/ingest/51c24d0f-408a-4467-b234-11f06e9ffc5f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:loadProductMaterials',message:'loadProductMaterials entry',data:{productId},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H2'})}).catch(()=>{});
-    // #endregion
+
     const container = document.getElementById('product-materials-list');
     container.innerHTML = 'Carregando...';
     try {
         const materials = await api.productMaterials.list(productId);
         
         fetch('http://127.0.0.1:7242/ingest/51c24d0f-408a-4467-b234-11f06e9ffc5f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:loadProductMaterials:success',message:'loadProductMaterials success',data:{productId,materialsCount:materials.length},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H2'})}).catch(()=>{});
-        // #endregion
+        
         container.innerHTML = materials.length === 0
             ? '<p class="empty-message">Nenhuma matéria-prima associada.</p>'
             : materials.map(m => `
@@ -187,7 +187,7 @@ async function removeMaterial(productId, rawMaterialId) {
     }
 }
 
-// --- Matérias-primas (RF006) ---
+// Matérias-primas
 async function loadRawMaterials() {
     const tbody = document.getElementById('raw-materials-tbody');
     tbody.innerHTML = '<tr><td colspan="4">Carregando...</td></tr>';
@@ -301,7 +301,7 @@ async function loadProducible() {
     } catch (e) {
         
         fetch('http://127.0.0.1:7242/ingest/51c24d0f-408a-4467-b234-11f06e9ffc5f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.js:loadProducible:catch',message:'loadProducible error',data:{errMessage:e.message},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H1,H3'})}).catch(()=>{});
-        // #endregion
+        
         tbody.innerHTML = `<tr><td colspan="4">Erro: ${e.message}</td></tr>`;
     }
 }
