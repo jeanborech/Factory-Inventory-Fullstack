@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factory Inventory - Controle de Estoque</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Factory Inventory</h1>
+        <nav class="nav">
+            <button class="nav-btn active" data-page="products">Produtos</button>
+            <button class="nav-btn" data-page="raw-materials">Matérias-primas</button>
+            <button class="nav-btn" data-page="producible">Produtos Produzíveis</button>
+        </nav>
+    </header>
+
+    <main class="main">
+        <!-- RF005: Produtos -->
+        <section id="page-products" class="page active">
+            <div class="page-header">
+                <h2>Cadastro de Produtos</h2>
+                <button id="btn-new-product" class="btn btn-primary">Novo Produto</button>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>Preço</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-tbody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- RF006: Matérias-primas -->
+        <section id="page-raw-materials" class="page">
+            <div class="page-header">
+                <h2>Cadastro de Matérias-primas</h2>
+                <button id="btn-new-raw-material" class="btn btn-primary">Nova Matéria-prima</button>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>Quantidade em Estoque</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="raw-materials-tbody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- RF008: Produtos Produzíveis -->
+        <section id="page-producible" class="page">
+            <div class="page-header">
+                <h2>Produtos Produzíveis com Estoque Atual</h2>
+                <button id="btn-refresh-producible" class="btn btn-secondary">Atualizar</button>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>Preço</th>
+                            <th>Quantidade Máxima Produzível</th>
+                        </tr>
+                    </thead>
+                    <tbody id="producible-tbody"></tbody>
+                </table>
+                <p id="producible-empty" class="empty-message" style="display:none;">Nenhum produto pode ser produzido com o estoque atual.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Produto (RF005 + RF007) -->
+    <div id="modal-product" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-product-title">Novo Produto</h3>
+                <button class="modal-close" data-modal="product">&times;</button>
+            </div>
+            <form id="form-product">
+                <input type="hidden" id="product-id">
+                <div class="form-group">
+                    <label for="product-code">Código</label>
+                    <input type="text" id="product-code" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-name">Nome</label>
+                    <input type="text" id="product-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Preço</label>
+                    <input type="number" id="product-price" step="0.01" min="0" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary modal-cancel">Cancelar</button>
+                </div>
+            </form>
+            <!-- RF007: Associação matérias-primas (integrado no cadastro de produto) -->
+            <div id="product-materials-section" class="product-materials" style="display:none;">
+                <hr>
+                <h4>Matérias-primas associadas</h4>
+                <div id="product-materials-list"></div>
+                <div class="form-inline add-material">
+                    <select id="material-raw-select"></select>
+                    <input type="number" id="material-qty" step="0.0001" min="0.0001" placeholder="Qtd. necessária">
+                    <button type="button" id="btn-add-material" class="btn btn-primary">Adicionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Matéria-prima (RF006) -->
+    <div id="modal-raw-material" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-raw-material-title">Nova Matéria-prima</h3>
+                <button class="modal-close" data-modal="raw-material">&times;</button>
+            </div>
+            <form id="form-raw-material">
+                <input type="hidden" id="raw-material-id">
+                <div class="form-group">
+                    <label for="raw-material-code">Código</label>
+                    <input type="text" id="raw-material-code" required>
+                </div>
+                <div class="form-group">
+                    <label for="raw-material-name">Nome</label>
+                    <input type="text" id="raw-material-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="raw-material-stock">Quantidade em Estoque</label>
+                    <input type="number" id="raw-material-stock" step="0.0001" min="0" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary modal-cancel">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

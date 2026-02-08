@@ -1,0 +1,24 @@
+**/target/
+*.log
+
+# Maven wrapper - manter versionado (não ignorar)
+!.mvn/wrapper/maven-wrapper.jar
+
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated
+.springBeans
+.sts4-cache/
+
+**/node_modules/
+**/dist/
+**/build/
+**/.parcel-cache/
+**/.next/
