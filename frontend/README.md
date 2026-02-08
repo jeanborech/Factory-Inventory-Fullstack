@@ -31,9 +31,24 @@ Se o backend estiver em outro host/porta, altere `API_BASE` em `js/api.js`.
 
 | Script | Comando | Descrição |
 |--------|---------|-----------|
-| start | `npx serve . -p 3000` | Inicia servidor estático na porta 3000 |
-| test | `cypress run` | Executa testes de integração |
-| test:open | `cypress open` | Abre Cypress UI para rodar testes interativamente |
+| start | `npm start` | Inicia servidor estático na porta 3000 |
+| test | `npm test` | Executa testes unitários (Jest) |
+| test:e2e | `npm run test:e2e` | Executa testes de integração (Cypress) |
+| test:e2e:open | `npm run test:e2e:open` | Abre Cypress UI |
+
+## Testes unitários (Jest)
+
+Os testes unitários validam regras de negócio isoladas do frontend,
+sem dependência do backend ou do DOM.
+
+Exemplo:
+- Cálculo da quantidade máxima produzível baseada no estoque das matérias-primas.
+
+Executar:
+
+```bash
+cd frontend
+npm test
 
 ## Testes de integração (Cypress)
 
@@ -47,12 +62,12 @@ cd backend && mvn spring-boot:run
 cd frontend && npm start
 
 # Terminal 3: testes
-cd frontend && npm test
+cd frontend && npm run test:e2e
 ```
 
 Testes em modo interativo:
 ```bash
-cd frontend && npm run test:open
+cd frontend && npm run test:e2e:open
 ```
 
 Especificações em `cypress/e2e/`:
